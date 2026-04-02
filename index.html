@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Հարցում — Axiom Synergy Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #020308;
+      --surface: #0a0e1a;
+      --border: rgba(242, 245, 247, 0.14);
+      --text: #e8e8e8;
+      --muted: #a8b0c4;
+      --accent: #f2f5f7;
+      --accent-dim: rgba(242, 245, 247, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Noto Sans Armenian", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      max-width: min(280px, 85vw);
+      height: auto;
+      display: block;
+      margin: 0 auto 1.5rem;
+    }
+
+    h1 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    fieldset {
+      margin: 0;
+      padding: 1.35rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+    }
+
+    legend {
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0 0.5rem;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    .options {
+      margin: 1rem 0 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .options li label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      cursor: pointer;
+      padding: 0.5rem 0.65rem;
+      border-radius: 8px;
+      transition: background 0.15s ease;
+    }
+
+    .options li label:hover {
+      background: var(--accent-dim);
+    }
+
+    .options input {
+      margin-top: 0.35rem;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .contact-block {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+
+    .contact-block.visible {
+      display: block;
+    }
+
+    .contact-block label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .contact-block input,
+    .contact-block textarea {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      margin-bottom: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .contact-block textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .optional-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: -0.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .actions {
+      margin-top: 0.5rem;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      font-family: inherit;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #01004b;
+      background: #f2f5f7;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    button[type="submit"]:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(242, 245, 247, 0.35);
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0 0 0.75rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .tagline {
+      color: #f2f5f7;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    #thankYou {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    #thankYou.visible {
+      display: block;
+    }
+
+    #thankYou h2 {
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    form.hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img class="logo" src="logo.PNG" alt="Axiom Synergy Group" width="280" height="120" />
+      <h1>Հարցում</h1>
+    </header>
+
+    <div id="thankYou" aria-live="polite">
+      <h2>Շնորհակալություն</h2>
+      <p>Շնորհակալություն հարցմանը մասնակցելու համար։</p>
+      <p class="tagline">Axiom Synergy Group – Մենք չենք կանխատեսում ապագան, մենք այն հաշվարկում ենք։</p>
+    </div>
+
+    <form id="survey" novalidate>
+      <fieldset>
+        <legend>1. Որքա՞ն է ձեր վերահսկողության տակ գտնվող արևային կայանների ընդհանուր հզորությունը։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q1" value="до100" required /> Մինչև 100 կՎտ</label></li>
+          <li><label><input type="radio" name="q1" value="100-500" /> 100 - 500 կՎտ</label></li>
+          <li><label><input type="radio" name="q1" value="500+" /> 500 կՎտ և ավելի</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. Ի՞նչ տիպի համակարգեր եք հիմնականում շահագործում այս պահին։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q2" value="static" required /> Ստատիկ (անշարժ) կոնստրուկցիաներ</label></li>
+          <li><label><input type="radio" name="q2" value="single-axis" /> Մեկ առանցքով շարժվող համակարգեր</label></li>
+          <li><label><input type="radio" name="q2" value="trackers" /> Երկառանցք հետագծող համակարգեր (Trackers)</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. Որքա՞ն է կազմում ձեր կայանի էներգիայի տարեկան միջին կորուստը՝ կապված պանելների անշարժ դիրքի հետ։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q3" value="0-15" required /> 0 - 15%</label></li>
+          <li><label><input type="radio" name="q3" value="15-30" /> 15 - 30%</label></li>
+          <li><label><input type="radio" name="q3" value="30-45" /> 30 - 45%</label></li>
+          <li><label><input type="radio" name="q3" value="unknown" /> Տեղեկացված չեմ</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>4. Որքանո՞վ եք գոհ ձեր ներկայիս համակարգերի ՕԳԳ-ից (արդյունավետությունից)։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q4" value="1-3" required /> 1 - 3 (Շատ դժգոհ)</label></li>
+          <li><label><input type="radio" name="q4" value="4-6" /> 4 - 6 (Միջին)</label></li>
+          <li><label><input type="radio" name="q4" value="7-10" /> 7 - 10 (Գոհ եմ)</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>5. Արդյո՞ք կիրառում եք ավտոմատացված մոնիտորինգի համակարգեր ձեր կայաններում։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q5" value="yes" required /> Այո</label></li>
+          <li><label><input type="radio" name="q5" value="no" /> Ոչ</label></li>
+          <li><label><input type="radio" name="q5" value="partial" /> Միայն մասնակի</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>6. Որքա՞ն հաճախ եք իրականացնում պանելների տեխնիկական զննում և սպասարկում։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q6" value="monthly" required /> Ամսական</label></li>
+          <li><label><input type="radio" name="q6" value="twice-year" /> Տարեկան 2 անգամ</label></li>
+          <li><label><input type="radio" name="q6" value="on-failure" /> Միայն խափանման դեպքում</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>7. Որքանո՞վ է ձեզ հետաքրքրում սարքավորումը, որը կբարձրացնի արտադրողականությունը 40%-ով՝ առանց նոր պանելների ավելացման։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q7" value="very" required /> Շատ հետաքրքրված եմ</label></li>
+          <li><label><input type="radio" name="q7" value="somewhat" /> Որոշ չափով հետաքրքրված եմ</label></li>
+          <li><label><input type="radio" name="q7" value="not" /> Հետաքրքրված չեմ</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>8. Որքանո՞վ է կարևոր համակարգի ունակությունը՝ ինքնուրույն ադապտացվելու եղանակային փոփոխություններին (քամի, ձյուն)։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q8" value="very-important" required /> Շատ կարևոր է</label></li>
+          <li><label><input type="radio" name="q8" value="desirable" /> Ցանկալի է</label></li>
+          <li><label><input type="radio" name="q8" value="not-important" /> Կարևոր չէ</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>9. Կցանկանայի՞ք ունենալ միասնական Dashboard (կառավարման վահանակ)՝ բոլոր ռեսուրսները մեկ հավելվածով վերահսկելու համար։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q9" value="essential" required /> Այո, դա անհրաժեշտություն է</label></li>
+          <li><label><input type="radio" name="q9" value="later" /> Գուցե հետագայում</label></li>
+          <li><label><input type="radio" name="q9" value="no" /> Ոչ, կարիքը չկա</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>10. Ո՞րն է ձեզ համար սարքավորման հետգնման (ROI) ամենաընդունելի ժամկետը։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q10" value="1-1.5" required /> 1 - 1.5 տարի</label></li>
+          <li><label><input type="radio" name="q10" value="2-3" /> 2 - 3 տարի</label></li>
+          <li><label><input type="radio" name="q10" value="5+" /> 5 տարի և ավելի</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>11. Ի՞նչն է ձեզ համար առաջնային նոր տեխնոլոգիա ներդնելիս։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q11" value="price" required /> Ցածր սկզբնական գինը</label></li>
+          <li><label><input type="radio" name="q11" value="reliability" /> Տեխնոլոգիական հուսալիությունը</label></li>
+          <li><label><input type="radio" name="q11" value="service" /> Արագ սպասարկումը և երաշխիքը</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>12. Որքա՞ն գումար եք պատրաստ ներդնել յուրաքանչյուր 1 կՎտ հզորության օպտիմալացման համար, եթե այն ավելացնում է եկամուտը 40%-ով։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q12" value="до100" required /> Մինչև 100$</label></li>
+          <li><label><input type="radio" name="q12" value="100-250" /> 100$ - 250$</label></li>
+          <li><label><input type="radio" name="q12" value="250+" /> 250$ և ավելի</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>13. Արդյո՞ք պատրաստ եք վճարել ամսական սպասարկման վճար (SaaS)՝ անընդհատ թարմացվող ալգորիթմներ ստանալու համար։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q13" value="yes" required /> Այո</label></li>
+          <li><label><input type="radio" name="q13" value="no" /> Ոչ</label></li>
+          <li><label><input type="radio" name="q13" value="depends" /> Կախված է սպասարկման որակից</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>14. Որքանո՞վ է ձեր ընկերության համար կարևոր «Կանաչ և Խելացի» բրենդավորումը միջազգային շուկայում։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q14" value="very" required /> Շատ կարևոր է</label></li>
+          <li><label><input type="radio" name="q14" value="medium" /> Միջին կարևորության է</label></li>
+          <li><label><input type="radio" name="q14" value="not" /> Բացարձակ կարևոր չէ</label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>15. Կցանկանայի՞ք մասնակցել Axiom Synergy-ի փորձնական (Beta) նախագծին և ստանալ առաջին օրինակը հատուկ պայմաններով։</legend>
+        <ul class="options">
+          <li><label><input type="radio" name="q15" value="yes-contact" required /> Այո (թողնում եմ կոնտակտային տվյալներ)</label></li>
+          <li><label><input type="radio" name="q15" value="not-now" /> Ոչ այս պահին</label></li>
+          <li><label><input type="radio" name="q15" value="more-info" /> Ցանկանում եմ ստանալ լրացուցիչ տեղեկատվություն</label></li>
+        </ul>
+        <div class="contact-block" id="contactBlock">
+          <p class="optional-note">Լրացրեք կոնտակտային տվյալները (ըստ ցանկության՝ նաև լրացուցիչ մեկնաբանություն)։</p>
+          <label for="contactName">Անուն, ազգանուն</label>
+          <input type="text" id="contactName" name="contactName" autocomplete="name" />
+          <label for="contactEmail">Էլ. փոստ</label>
+          <input type="email" id="contactEmail" name="contactEmail" autocomplete="email" />
+          <label for="contactPhone">Հեռախոս</label>
+          <input type="tel" id="contactPhone" name="contactPhone" autocomplete="tel" />
+          <label for="comments">Լրացուցիչ մեկնաբանություն</label>
+          <textarea id="comments" name="comments" placeholder="Գրեք այստեղ…"></textarea>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button type="submit">Ուղարկել</button>
+      </div>
+    </form>
+
+    <footer id="pageFooter">
+      <p>Շնորհակալություն հարցմանը մասնակցելու համար։</p>
+      <p class="tagline">Axiom Synergy Group – Մենք չենք կանխատեսում ապագան, մենք այն հաշվարկում ենք։</p>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var form = document.getElementById("survey");
+      var thankYou = document.getElementById("thankYou");
+      var footer = document.getElementById("pageFooter");
+      var contactBlock = document.getElementById("contactBlock");
+      var q15Inputs = document.querySelectorAll('input[name="q15"]');
+
+      function syncContact() {
+        var yes = document.querySelector('input[name="q15"][value="yes-contact"]');
+        if (yes && yes.checked) {
+          contactBlock.classList.add("visible");
+          contactBlock.querySelectorAll("input, textarea").forEach(function (el) {
+            el.removeAttribute("disabled");
+          });
+        } else {
+          contactBlock.classList.remove("visible");
+          contactBlock.querySelectorAll("input, textarea").forEach(function (el) {
+            el.setAttribute("disabled", "disabled");
+          });
+        }
+      }
+
+      q15Inputs.forEach(function (r) {
+        r.addEventListener("change", syncContact);
+      });
+      syncContact();
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        var yesContact = document.querySelector('input[name="q15"][value="yes-contact"]');
+        if (yesContact && yesContact.checked) {
+          var email = (document.getElementById("contactEmail").value || "").trim();
+          var phone = (document.getElementById("contactPhone").value || "").trim();
+          if (!email && !phone) {
+            alert("Խնդրում ենք լրացնել էլ. փոստը կամ հեռախոսահամարը։");
+            return;
+          }
+        }
+        var data = new FormData(form);
+        var payload = {};
+        data.forEach(function (v, k) {
+          payload[k] = v;
+        });
+        console.log("Survey submission:", payload);
+        form.classList.add("hidden");
+        if (footer) footer.style.display = "none";
+        thankYou.classList.add("visible");
+        thankYou.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    })();
+  </script>
+</body>
+</html>
