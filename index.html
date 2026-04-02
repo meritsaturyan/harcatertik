@@ -122,7 +122,8 @@
       display: block;
     }
 
-    .contact-block label {
+    .contact-block label,
+    .intro-fields label {
       display: block;
       font-size: 0.9rem;
       color: var(--muted);
@@ -130,7 +131,8 @@
     }
 
     .contact-block input,
-    .contact-block textarea {
+    .contact-block textarea,
+    .intro-fields input {
       width: 100%;
       padding: 0.65rem 0.85rem;
       margin-bottom: 0.85rem;
@@ -140,6 +142,18 @@
       color: var(--text);
       font-family: inherit;
       font-size: 1rem;
+    }
+
+    .intro-fields {
+      margin: 0;
+      padding: 1.35rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+    }
+
+    .intro-fields input:last-of-type {
+      margin-bottom: 0;
     }
 
     .contact-block textarea {
@@ -230,6 +244,19 @@
     </div>
 
     <form id="survey" novalidate>
+      <div class="intro-fields">
+        <label for="organizationName">Կազմակերպության անվանումը</label>
+        <input
+          type="text"
+          id="organizationName"
+          name="organizationName"
+          required
+          autocomplete="organization-name"
+        />
+        <label for="mainPhone">Հեռախոսահամարը</label>
+        <input type="tel" id="mainPhone" name="mainPhone" required autocomplete="tel" inputmode="tel" />
+      </div>
+
       <fieldset>
         <legend>1. Որքա՞ն է ձեր վերահսկողության տակ գտնվող արևային կայանների ընդհանուր հզորությունը։</legend>
         <ul class="options">
@@ -426,7 +453,8 @@
         if (yesContact && yesContact.checked) {
           var email = (document.getElementById("contactEmail").value || "").trim();
           var phone = (document.getElementById("contactPhone").value || "").trim();
-          if (!email && !phone) {
+          var mainPhone = (document.getElementById("mainPhone").value || "").trim();
+          if (!email && !phone && !mainPhone) {
             alert("Խնդրում ենք լրացնել էլ. փոստը կամ հեռախոսահամարը։");
             return;
           }
