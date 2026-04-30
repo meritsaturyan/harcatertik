@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Հարցում — Axiom Synergy Group</title>
+  <title>ՀԱՐՑԱԹԵՐԹԻԿ — Axiom Synergy Group</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -228,13 +228,25 @@
     form.hidden {
       display: none;
     }
+
+    .survey-intro {
+      margin: 0 0 0.25rem;
+      padding: 1rem 1.1rem;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.6;
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
       <img class="logo" src="logo.PNG" alt="Axiom Synergy Group" width="280" height="120" />
-      <h1>Հարցում</h1>
+      <h1>ՀԱՐՑԱԹԵՐԹԻԿ</h1>
     </header>
 
     <div id="thankYou" aria-live="polite">
@@ -244,6 +256,9 @@
     </div>
 
     <form id="survey" novalidate>
+      <p class="survey-intro">
+        Հարգելի գործընկեր, խնդրում ենք լրացնել այս հարցումը, որն օգնելու է օպտիմալացնել ձեր տնտեսության էներգետիկ ծախսերը։
+      </p>
       <div class="intro-fields">
         <label for="organizationName">Կազմակերպության անվանումը</label>
         <input
@@ -258,138 +273,137 @@
       </div>
 
       <fieldset>
-        <legend>1. Որքա՞ն է ձեր վերահսկողության տակ գտնվող արևային կայանների ընդհանուր հզորությունը։</legend>
+        <legend>1. Ինչպիսի՞ տնտեսություն եք ղեկավարում։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q1" value="до100" required /> Մինչև 100 կՎտ</label></li>
-          <li><label><input type="radio" name="q1" value="100-500" /> 100 - 500 կՎտ</label></li>
-          <li><label><input type="radio" name="q1" value="500+" /> 500 կՎտ և ավելի</label></li>
+          <li><label><input type="radio" name="q1" value="greenhouse" required /> Ջերմոցային տնտեսություն</label></li>
+          <li><label><input type="radio" name="q1" value="agriculture" /> Այգեգործություն / Դաշտավարություն</label></li>
+          <li><label><input type="radio" name="q1" value="manufacturing" /> Արտադրական ձեռնարկություն (սառնարանային, վերամշակող և այլն)</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>2. Ի՞նչ տիպի համակարգեր եք հիմնականում շահագործում այս պահին։</legend>
+        <legend>2. Որքա՞ն է կազմում ձեր ամսական էլեկտրաէներգիայի ծախսը միջինում։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q2" value="static" required /> Ստատիկ (անշարժ) կոնստրուկցիաներ</label></li>
-          <li><label><input type="radio" name="q2" value="single-axis" /> Մեկ առանցքով շարժվող համակարգեր</label></li>
-          <li><label><input type="radio" name="q2" value="trackers" /> Երկառանցք հետագծող համակարգեր (Trackers)</label></li>
+          <li><label><input type="radio" name="q2" value="under-200k" required /> Մինչև 200,000 դրամ</label></li>
+          <li><label><input type="radio" name="q2" value="200k-500k" /> 200,000 - 500,000 դրամ</label></li>
+          <li><label><input type="radio" name="q2" value="over-500k" /> 500,000 դրամից ավելի</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>3. Որքա՞ն է կազմում ձեր կայանի էներգիայի տարեկան միջին կորուստը՝ կապված պանելների անշարժ դիրքի հետ։</legend>
+        <legend>3. Ինչպե՞ս եք իրականացնում ոռոգումը կամ ռեսուրսների կառավարումը։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q3" value="0-15" required /> 0 - 15%</label></li>
-          <li><label><input type="radio" name="q3" value="15-30" /> 15 - 30%</label></li>
-          <li><label><input type="radio" name="q3" value="30-45" /> 30 - 45%</label></li>
-          <li><label><input type="radio" name="q3" value="unknown" /> Տեղեկացված չեմ</label></li>
+          <li><label><input type="radio" name="q3" value="manual" required /> Մեխանիկական / Ձեռքով</label></li>
+          <li><label><input type="radio" name="q3" value="semi-auto" /> Կիսաավտոմատացված</label></li>
+          <li><label><input type="radio" name="q3" value="full-auto" /> Լիարժեք ավտոմատացված (խելացի համակարգերով)</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>4. Որքանո՞վ եք գոհ ձեր ներկայիս համակարգերի ՕԳԳ-ից (արդյունավետությունից)։</legend>
+        <legend>4. Որքա՞ն է ձեր տնտեսության մեջ ջրի կամ էներգիայի կորուստը անարդյունավետ կառավարման պատճառով (մոտավոր)։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q4" value="1-3" required /> 1 - 3 (Շատ դժգոհ)</label></li>
-          <li><label><input type="radio" name="q4" value="4-6" /> 4 - 6 (Միջին)</label></li>
-          <li><label><input type="radio" name="q4" value="7-10" /> 7 - 10 (Գոհ եմ)</label></li>
+          <li><label><input type="radio" name="q4" value="loss-0-10" required /> 0 - 10%</label></li>
+          <li><label><input type="radio" name="q4" value="loss-10-25" /> 10 - 25%</label></li>
+          <li><label><input type="radio" name="q4" value="loss-25plus" /> 25% և ավելի</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>5. Արդյո՞ք կիրառում եք ավտոմատացված մոնիտորինգի համակարգեր ձեր կայաններում։</legend>
+        <legend>5. Տեղյա՞կ եք արդյոք պետական լիզինգային ծրագրերից, որոնք թույլ են տալիս ձեռք բերել սարքավորումներ 2-5% տարեկան տոկոսադրույքով։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q5" value="yes" required /> Այո</label></li>
-          <li><label><input type="radio" name="q5" value="no" /> Ոչ</label></li>
-          <li><label><input type="radio" name="q5" value="partial" /> Միայն մասնակի</label></li>
+          <li><label><input type="radio" name="q5" value="leasing-yes" required /> Այո</label></li>
+          <li><label><input type="radio" name="q5" value="leasing-no" /> Ոչ</label></li>
+          <li><label><input type="radio" name="q5" value="leasing-heard" /> Լսել եմ, բայց չգիտեմ մանրամասները</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>6. Որքա՞ն հաճախ եք իրականացնում պանելների տեխնիկական զննում և սպասարկում։</legend>
+        <legend>6. Որքանո՞վ կհետաքրքրեր Ձեզ տեխնոլոգիա, որը նույն մակերեսից կապահովի 40% ավելի էլեկտրաէներգիա և կխնայի մինչև 40% ջուր։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q6" value="monthly" required /> Ամսական</label></li>
-          <li><label><input type="radio" name="q6" value="twice-year" /> Տարեկան 2 անգամ</label></li>
-          <li><label><input type="radio" name="q6" value="on-failure" /> Միայն խափանման դեպքում</label></li>
+          <li><label><input type="radio" name="q6" value="tech-very" required /> Շատ հետաքրքիր է (կցանկանայի խորհրդատվություն)</label></li>
+          <li><label><input type="radio" name="q6" value="tech-maybe" /> Հնարավոր է՝ ապագայում</label></li>
+          <li><label><input type="radio" name="q6" value="tech-no" /> Հետաքրքիր չէ</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>7. Որքանո՞վ է ձեզ հետաքրքրում սարքավորումը, որը կբարձրացնի արտադրողականությունը 40%-ով՝ առանց նոր պանելների ավելացման։</legend>
+        <legend>7. Արդյո՞ք արդեն իսկ կիրառում եք վերականգնվող էներգիայի որևէ աղբյուր (օրինակ՝ արևային պանելներ)։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q7" value="very" required /> Շատ հետաքրքրված եմ</label></li>
-          <li><label><input type="radio" name="q7" value="somewhat" /> Որոշ չափով հետաքրքրված եմ</label></li>
-          <li><label><input type="radio" name="q7" value="not" /> Հետաքրքրված չեմ</label></li>
+          <li><label><input type="radio" name="q7" value="re-yes" required /> Այո, արդեն ունեմ տեղադրված</label></li>
+          <li><label><input type="radio" name="q7" value="re-plan" /> Ոչ, բայց պլանավորում եմ մոտ ապագայում</label></li>
+          <li><label><input type="radio" name="q7" value="re-no" /> Ոչ, չեմ դիտարկում այդ տարբերակը</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>8. Որքանո՞վ է կարևոր համակարգի ունակությունը՝ ինքնուրույն ադապտացվելու եղանակային փոփոխություններին (քամի, ձյուն)։</legend>
+        <legend>8. Որքանո՞վ եք կարևորում հեռահար կառավարման համակարգերի դերը (AI, հեռախոսով մոնիտորինգ) Ձեր տնտեսության մեջ։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q8" value="very-important" required /> Շատ կարևոր է</label></li>
-          <li><label><input type="radio" name="q8" value="desirable" /> Ցանկալի է</label></li>
-          <li><label><input type="radio" name="q8" value="not-important" /> Կարևոր չէ</label></li>
+          <li><label><input type="radio" name="q8" value="remote-very" required /> Շատ կարևոր է (խնայում է ժամանակ և ռեսուրս)</label></li>
+          <li><label><input type="radio" name="q8" value="remote-mid" /> Միջին (կօգտվեի, եթե հեշտ լիներ կառավարումը)</label></li>
+          <li><label><input type="radio" name="q8" value="remote-low" /> Կարևոր չէ (նախընտրում եմ տեղում վերահսկել)</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>9. Կցանկանայի՞ք ունենալ միասնական Dashboard (կառավարման վահանակ)՝ բոլոր ռեսուրսները մեկ հավելվածով վերահսկելու համար։</legend>
+        <legend>9. Ի՞նչն է Ձեզ համար հանդիսանում հիմնական խոչընդոտ նոր տեխնոլոգիաներ ներդնելու հարցում։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q9" value="essential" required /> Այո, դա անհրաժեշտություն է</label></li>
-          <li><label><input type="radio" name="q9" value="later" /> Գուցե հետագայում</label></li>
-          <li><label><input type="radio" name="q9" value="no" /> Ոչ, կարիքը չկա</label></li>
+          <li><label><input type="radio" name="q9" value="obstacle-capex" required /> Բարձր սկզբնական ներդրումային արժեքը</label></li>
+          <li><label><input type="radio" name="q9" value="obstacle-skills" /> Տեխնիկական գիտելիքների կամ մասնագետների պակասը</label></li>
+          <li><label><input type="radio" name="q9" value="obstacle-trust" /> Վստահության պակասը սարքավորումների երկարակեցության նկատմամբ</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>10. Ո՞րն է ձեզ համար սարքավորման հետգնման (ROI) ամենաընդունելի ժամկետը։</legend>
+        <legend>10. Տեղյա՞կ եք միջազգային դրամաշնորհներից (օրինակ՝ GEFF), որոնք էներգաարդյունավետ սարքավորումների համար տրամադրում են մինչև 25% Cashback (ետվճար)։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q10" value="1-1.5" required /> 1 - 1.5 տարի</label></li>
-          <li><label><input type="radio" name="q10" value="2-3" /> 2 - 3 տարի</label></li>
-          <li><label><input type="radio" name="q10" value="5+" /> 5 տարի և ավելի</label></li>
+          <li><label><input type="radio" name="q10" value="geff-yes" required /> Այո, տեղյակ եմ</label></li>
+          <li><label><input type="radio" name="q10" value="geff-no" /> Ոչ, առաջին անգամ եմ լսում</label></li>
+          <li><label><input type="radio" name="q10" value="geff-heard" /> Լսել եմ, բայց չգիտեմ՝ ինչպես օգտվել</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>11. Ի՞նչն է ձեզ համար առաջնային նոր տեխնոլոգիա ներդնելիս։</legend>
+        <legend>11. Որքա՞ն ժամանակահատվածում եք ակնկալում, որ նոր ներդրված սարքավորումը պետք է ամբողջությամբ փակի իր ծախսերը (ետգնում)։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q11" value="price" required /> Ցածր սկզբնական գինը</label></li>
-          <li><label><input type="radio" name="q11" value="reliability" /> Տեխնոլոգիական հուսալիությունը</label></li>
-          <li><label><input type="radio" name="q11" value="service" /> Արագ սպասարկումը և երաշխիքը</label></li>
+          <li><label><input type="radio" name="q11" value="payback-1-3" required /> 1 - 3 տարի</label></li>
+          <li><label><input type="radio" name="q11" value="payback-4-6" /> 4 - 6 տարի</label></li>
+          <li><label><input type="radio" name="q11" value="payback-6plus" /> 6 տարուց ավելի</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>12. Որքա՞ն գումար եք պատրաստ ներդնել յուրաքանչյուր 1 կՎտ հզորության օպտիմալացման համար, եթե այն ավելացնում է եկամուտը 40%-ով։</legend>
+        <legend>12. Արդյո՞ք նախկինում լսել եք «Axiom Synergy Group» ընկերության կամ մեր նորարարական Dual-Axis Solar Tracker-ների մասին։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q12" value="до100" required /> Մինչև 100$</label></li>
-          <li><label><input type="radio" name="q12" value="100-250" /> 100$ - 250$</label></li>
-          <li><label><input type="radio" name="q12" value="250+" /> 250$ և ավելի</label></li>
+          <li><label><input type="radio" name="q12" value="axiom-well" required /> Այո, լավ ծանոթ եմ</label></li>
+          <li><label><input type="radio" name="q12" value="axiom-name" /> Լսել եմ անունը, բայց մանրամասներին չեմ տիրապետում</label></li>
+          <li><label><input type="radio" name="q12" value="axiom-first" /> Ոչ, առաջին անգամ եմ լսում</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>13. Արդյո՞ք պատրաստ եք վճարել ամսական սպասարկման վճար (SaaS)՝ անընդհատ թարմացվող ալգորիթմներ ստանալու համար։</legend>
+        <legend>13. Որքանո՞վ է Ձեզ համար վստահելի հայկական արտադրության ինժեներական լուծումը՝ համեմատած ներկրված (օրինակ՝ չինական) սարքերի հետ։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q13" value="yes" required /> Այո</label></li>
-          <li><label><input type="radio" name="q13" value="no" /> Ոչ</label></li>
-          <li><label><input type="radio" name="q13" value="depends" /> Կախված է սպասարկման որակից</label></li>
+          <li><label><input type="radio" name="q13" value="local-trust" required /> Ավելի վստահելի է (տեղական սպասարկման և որակի պատճառով)</label></li>
+          <li><label><input type="radio" name="q13" value="same" /> Նույնն է</label></li>
+          <li><label><input type="radio" name="q13" value="prefer-import" /> Նախընտրում եմ արտասահմանյանը</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>14. Որքանո՞վ է ձեր ընկերության համար կարևոր «Կանաչ և Խելացի» բրենդավորումը միջազգային շուկայում։</legend>
+        <legend>14. Որտեղի՞ց եք սովորաբար ստանում տեղեկատվություն նոր տեխնոլոգիաների կամ գյուղատնտեսական լուծումների մասին։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q14" value="very" required /> Շատ կարևոր է</label></li>
-          <li><label><input type="radio" name="q14" value="medium" /> Միջին կարևորության է</label></li>
-          <li><label><input type="radio" name="q14" value="not" /> Բացարձակ կարևոր չէ</label></li>
+          <li><label><input type="radio" name="q14" value="info-social" required /> Սոցիալական ցանցեր (Facebook, Instagram)</label></li>
+          <li><label><input type="radio" name="q14" value="info-events" /> Մասնագիտական ցուցահանդեսներ և սեմինարներ</label></li>
+          <li><label><input type="radio" name="q14" value="info-network" /> Գործընկերների/ծանոթների խորհրդով</label></li>
         </ul>
       </fieldset>
 
       <fieldset>
-        <legend>15. Կցանկանայի՞ք մասնակցել Axiom Synergy-ի փորձնական (Beta) նախագծին և ստանալ առաջին օրինակը հատուկ պայմաններով։</legend>
+        <legend>15. Կցանկանայի՞ք ստանալ Ձեր տնտեսության համար անհատական էներգաարդյունավետության հաշվարկ և խորհրդատվություն Axiom-ի մասնագետների կողմից։</legend>
         <ul class="options">
-          <li><label><input type="radio" name="q15" value="yes-contact" required /> Այո (թողնում եմ կոնտակտային տվյալներ)</label></li>
-          <li><label><input type="radio" name="q15" value="not-now" /> Ոչ այս պահին</label></li>
-          <li><label><input type="radio" name="q15" value="more-info" /> Ցանկանում եմ ստանալ լրացուցիչ տեղեկատվություն</label></li>
+          <li><label><input type="radio" name="q15" value="yes-contact" required /> Այո, խնդրում եմ կապ հաստատել ինձ հետ</label></li>
+          <li><label><input type="radio" name="q15" value="maybe-later" /> Հնարավոր է՝ ապագայում</label></li>
+          <li><label><input type="radio" name="q15" value="not-interested" /> Ոչ, այս պահին հետաքրքրված չեմ</label></li>
         </ul>
         <div class="contact-block" id="contactBlock">
           <p class="optional-note">Լրացրեք կոնտակտային տվյալները (ըստ ցանկության՝ նաև լրացուցիչ մեկնաբանություն)։</p>
