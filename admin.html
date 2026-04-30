@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Axiom Synergy Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #020308;
+      --surface: #0a0e1a;
+      --surface-2: #0f1422;
+      --border: rgba(242, 245, 247, 0.14);
+      --text: #e8e8e8;
+      --muted: #a8b0c4;
+      --accent: #f2f5f7;
+      --accent-dim: rgba(242, 245, 247, 0.12);
+      --good: #4ade80;
+      --warn: #fbbf24;
+      --bad: #f87171;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh;
+      font-family: "Noto Sans Armenian", system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      -webkit-font-smoothing: antialiased; line-height: 1.5;
+    }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+    h1 { margin: 0; font-size: 1.4rem; font-weight: 700; }
+    h1 small { display: block; font-size: 0.85rem; color: var(--muted); font-weight: 500; margin-top: 0.25rem; }
+    .header-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    button, .btn {
+      font-family: inherit; font-size: 0.95rem; font-weight: 600;
+      color: #01004b; background: var(--accent);
+      border: none; border-radius: 8px; padding: 0.6rem 1rem; cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+    button.secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    button:hover { transform: translateY(-1px); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .login-card {
+      max-width: 420px; margin: 4rem auto; padding: 1.75rem;
+      border: 1px solid var(--border); border-radius: 14px; background: var(--surface);
+    }
+    .login-card h2 { margin: 0 0 1rem; font-size: 1.25rem; }
+    .login-card label { display: block; font-size: 0.9rem; color: var(--muted); margin-bottom: 0.35rem; }
+    .login-card input {
+      width: 100%; padding: 0.7rem 0.9rem; margin-bottom: 1rem;
+      border: 1px solid var(--border); border-radius: 8px;
+      background: var(--bg); color: var(--text); font-family: inherit; font-size: 1rem;
+    }
+    .login-card .err { color: var(--bad); font-size: 0.9rem; margin: 0 0 0.75rem; min-height: 1.2em; }
+
+    .stats-summary {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem; margin-bottom: 2rem;
+    }
+    .stat-card { padding: 1.1rem; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+    .stat-card .label { font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat-card .value { font-size: 2rem; font-weight: 700; margin-top: 0.25rem; }
+
+    section.questions { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+    .question-card { padding: 1rem 1.1rem; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+    .question-card h3 { margin: 0 0 0.85rem; font-size: 0.98rem; line-height: 1.4; }
+    .opt { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0.65rem; padding: 0.35rem 0; }
+    .opt-label { color: var(--muted); font-size: 0.92rem; line-height: 1.35; }
+    .opt-bar { position: relative; height: 8px; background: var(--accent-dim); border-radius: 4px; overflow: hidden; grid-column: 1 / -1; margin-top: 0.25rem; }
+    .opt-bar > span { position: absolute; inset: 0; background: var(--accent); width: 0%; transition: width 0.4s ease; border-radius: 4px; }
+    .opt-count { font-size: 0.85rem; color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .opt-count em { color: var(--muted); font-style: normal; margin-left: 0.35rem; }
+
+    .table-wrap { border: 1px solid var(--border); border-radius: 12px; overflow: auto; background: var(--surface); }
+    table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    th, td { padding: 0.75rem 0.85rem; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: top; }
+    th { background: var(--surface-2); color: var(--muted); font-weight: 600; position: sticky; top: 0; z-index: 1; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.04em; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(242, 245, 247, 0.04); }
+    .row-org { font-weight: 600; }
+    .row-meta { color: var(--muted); font-size: 0.82rem; margin-top: 0.15rem; }
+    details > summary { cursor: pointer; color: var(--muted); font-size: 0.85rem; }
+    details[open] > summary { color: var(--text); margin-bottom: 0.45rem; }
+    .ans-grid { display: grid; grid-template-columns: 1fr; gap: 0.25rem; font-size: 0.85rem; }
+    .ans-grid div { color: var(--text); }
+    .ans-grid div span { color: var(--muted); margin-right: 0.4rem; }
+
+    .toolbar { display: flex; align-items: center; gap: 0.75rem; margin: 0 0 0.75rem; flex-wrap: wrap; }
+    .toolbar input { padding: 0.55rem 0.8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-family: inherit; font-size: 0.95rem; min-width: 220px; }
+    .empty { text-align: center; padding: 2.5rem 1rem; color: var(--muted); }
+    .hidden { display: none !important; }
+
+    @media (max-width: 720px) {
+      table { min-width: 720px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div id="loginView" class="login-card">
+      <h2>Admin Login</h2>
+      <label for="password">Admin password</label>
+      <input id="password" type="password" autocomplete="current-password" />
+      <p class="err" id="loginErr"></p>
+      <button id="loginBtn" type="button">Մուտք գործել</button>
+    </div>
+
+    <div id="dashboard" class="hidden">
+      <header>
+        <h1>
+          ՀԱՐՑԱԹԵՐԹԻԿ — Admin
+          <small id="lastUpdated">—</small>
+        </h1>
+        <div class="header-actions">
+          <button id="refreshBtn" class="secondary" type="button">Թարմացնել</button>
+          <button id="exportBtn" type="button">CSV արտահանում</button>
+          <button id="logoutBtn" class="secondary" type="button">Ելք</button>
+        </div>
+      </header>
+
+      <div class="stats-summary">
+        <div class="stat-card">
+          <div class="label">Ընդամենը հարցումներ</div>
+          <div class="value" id="totalCount">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Կապ խնդրած են</div>
+          <div class="value" id="contactCount">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Վերջին հարցում</div>
+          <div class="value" id="lastSubmission" style="font-size: 1.05rem; line-height: 1.4;">—</div>
+        </div>
+      </div>
+
+      <section class="questions" id="questionsBlock"></section>
+
+      <div class="toolbar">
+        <input id="searchInput" type="search" placeholder="Որոնում (անվանում, հեռախոս, էլ. փոստ)…" />
+        <span id="visibleCount" style="color: var(--muted); font-size: 0.85rem;"></span>
+      </div>
+
+      <div class="table-wrap">
+        <table id="submissionsTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Կազմակերպություն / Կոնտակտ</th>
+              <th>Ամսաթիվ</th>
+              <th>Պատասխաններ</th>
+            </tr>
+          </thead>
+          <tbody id="submissionsBody"></tbody>
+        </table>
+        <div id="emptyState" class="empty hidden">Դեռ չկան լրացված հարցումներ։</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const QUESTIONS = [
+      { key: "q1", label: "1. Ինչպիսի՞ տնտեսություն եք ղեկավարում։", options: {
+        "greenhouse": "Ջերմոցային տնտեսություն",
+        "agriculture": "Այգեգործություն / Դաշտավարություն",
+        "manufacturing": "Արտադրական ձեռնարկություն (սառնարանային, վերամշակող և այլն)"
+      }},
+      { key: "q2", label: "2. Ամսական էլեկտրաէներգիայի ծախսը։", options: {
+        "under-200k": "Մինչև 200,000 դրամ",
+        "200k-500k": "200,000 - 500,000 դրամ",
+        "over-500k": "500,000 դրամից ավելի"
+      }},
+      { key: "q3", label: "3. Ոռոգման / ռեսուրսների կառավարում։", options: {
+        "manual": "Մեխանիկական / Ձեռքով",
+        "semi-auto": "Կիսաավտոմատացված",
+        "full-auto": "Լիարժեք ավտոմատացված"
+      }},
+      { key: "q4", label: "4. Ջրի / էներգիայի կորուստ։", options: {
+        "loss-0-10": "0 - 10%",
+        "loss-10-25": "10 - 25%",
+        "loss-25plus": "25% և ավելի"
+      }},
+      { key: "q5", label: "5. Տեղյա՞կ պետական լիզինգային ծրագրերից։", options: {
+        "leasing-yes": "Այո",
+        "leasing-no": "Ոչ",
+        "leasing-heard": "Լսել եմ, բայց չգիտեմ մանրամասները"
+      }},
+      { key: "q6", label: "6. Հետաքրքրությունը 40% էներգիա + 40% ջուր լուծման նկատմամբ։", options: {
+        "tech-very": "Շատ հետաքրքիր է",
+        "tech-maybe": "Հնարավոր է՝ ապագայում",
+        "tech-no": "Հետաքրքիր չէ"
+      }},
+      { key: "q7", label: "7. Վերականգնվող էներգիայի աղբյուրներ։", options: {
+        "re-yes": "Այո, ունեմ",
+        "re-plan": "Պլանավորում եմ",
+        "re-no": "Չեմ դիտարկում"
+      }},
+      { key: "q8", label: "8. Հեռահար կառավարման համակարգերի դերը։", options: {
+        "remote-very": "Շատ կարևոր է",
+        "remote-mid": "Միջին",
+        "remote-low": "Կարևոր չէ"
+      }},
+      { key: "q9", label: "9. Հիմնական խոչընդոտը նոր տեխնոլոգիաների ներդնման մեջ։", options: {
+        "obstacle-capex": "Բարձր սկզբնական ներդրում",
+        "obstacle-skills": "Մասնագետների / գիտելիքների պակաս",
+        "obstacle-trust": "Վստահության պակաս"
+      }},
+      { key: "q10", label: "10. Տեղյա՞կ GEFF-ի նման դրամաշնորհներից։", options: {
+        "geff-yes": "Այո, տեղյակ եմ",
+        "geff-no": "Ոչ, առաջին անգամ եմ լսում",
+        "geff-heard": "Լսել եմ, բայց չգիտեմ մանրամասները"
+      }},
+      { key: "q11", label: "11. Ետգնման ակնկալվող ժամկետը։", options: {
+        "payback-1-3": "1 - 3 տարի",
+        "payback-4-6": "4 - 6 տարի",
+        "payback-6plus": "6 տարուց ավելի"
+      }},
+      { key: "q12", label: "12. Ծանոթ եք Axiom Synergy / Dual-Axis Tracker-ին։", options: {
+        "axiom-well": "Այո, լավ ծանոթ եմ",
+        "axiom-name": "Լսել եմ անունը",
+        "axiom-first": "Առաջին անգամ եմ լսում"
+      }},
+      { key: "q13", label: "13. Հայկական արտադրության վստահելիություն։", options: {
+        "local-trust": "Ավելի վստահելի",
+        "same": "Նույնն է",
+        "prefer-import": "Նախընտրում եմ արտասահմանյանը"
+      }},
+      { key: "q14", label: "14. Տեղեկատվության աղբյուր։", options: {
+        "info-social": "Սոցիալական ցանցեր",
+        "info-events": "Ցուցահանդեսներ / սեմինարներ",
+        "info-network": "Գործընկերներ / ծանոթներ"
+      }},
+      { key: "q15", label: "15. Ցանկանում եք Axiom-ի խորհրդատվությո՞ւն։", options: {
+        "yes-contact": "Այո, կապ հաստատել",
+        "maybe-later": "Հնարավոր է՝ ապագայում",
+        "not-interested": "Հետաքրքրված չեմ"
+      }},
+    ];
+
+    const QMAP = Object.fromEntries(QUESTIONS.map(q => [q.key, q]));
+    const state = { password: null, data: null, search: "" };
+
+    const $ = (id) => document.getElementById(id);
+
+    function setPassword(pw) {
+      state.password = pw;
+      try { sessionStorage.setItem("admin_pw", pw); } catch (e) {}
+    }
+    function clearPassword() {
+      state.password = null;
+      try { sessionStorage.removeItem("admin_pw"); } catch (e) {}
+    }
+    function loadStoredPassword() {
+      try { return sessionStorage.getItem("admin_pw"); } catch (e) { return null; }
+    }
+
+    async function fetchStats(pw) {
+      const res = await fetch("/api/stats", {
+        headers: { Authorization: "Bearer " + pw },
+        cache: "no-store",
+      });
+      if (res.status === 401) { const e = new Error("unauthorized"); e.code = 401; throw e; }
+      if (!res.ok) {
+        const txt = await res.text();
+        throw new Error("HTTP " + res.status + ": " + txt);
+      }
+      return res.json();
+    }
+
+    function showLogin(errorMsg) {
+      $("dashboard").classList.add("hidden");
+      $("loginView").classList.remove("hidden");
+      $("loginErr").textContent = errorMsg || "";
+      setTimeout(() => $("password").focus(), 50);
+    }
+    function showDashboard() {
+      $("loginView").classList.add("hidden");
+      $("dashboard").classList.remove("hidden");
+    }
+
+    function fmtDate(s) {
+      if (!s) return "—";
+      const d = new Date(s);
+      if (isNaN(d.getTime())) return s;
+      return d.toLocaleString("hy-AM", { dateStyle: "medium", timeStyle: "short" });
+    }
+    function escapeHtml(v) {
+      if (v == null) return "";
+      return String(v)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+    function answerLabel(qkey, value) {
+      const q = QMAP[qkey];
+      if (!q) return value || "—";
+      if (!value) return "—";
+      return q.options[value] || value;
+    }
+
+    function renderStats(data) {
+      $("totalCount").textContent = data.total;
+      const contactCount = (data.submissions || []).filter(
+        s => s.q15 === "yes-contact" || s.contact_email || s.contact_phone
+      ).length;
+      $("contactCount").textContent = contactCount;
+      const last = data.submissions && data.submissions[0];
+      $("lastSubmission").textContent = last ? fmtDate(last.created_at) : "—";
+      $("lastUpdated").textContent = "Թարմացվել է՝ " + new Date().toLocaleTimeString("hy-AM");
+
+      const block = $("questionsBlock");
+      block.innerHTML = "";
+      for (const q of QUESTIONS) {
+        const counts = data.stats[q.key] || [];
+        const total = counts.reduce((acc, r) => acc + r.count, 0);
+        const card = document.createElement("div");
+        card.className = "question-card";
+        const inner = [
+          '<h3>' + escapeHtml(q.label) + '</h3>',
+        ];
+        const optionKeys = Object.keys(q.options);
+        const seen = new Set();
+        const ordered = [];
+        for (const row of counts) {
+          if (row.value && q.options[row.value]) {
+            ordered.push({ key: row.value, label: q.options[row.value], count: row.count });
+            seen.add(row.value);
+          }
+        }
+        for (const key of optionKeys) {
+          if (!seen.has(key)) ordered.push({ key, label: q.options[key], count: 0 });
+        }
+        for (const row of counts) {
+          if (row.value && !q.options[row.value]) {
+            ordered.push({ key: row.value, label: row.value, count: row.count });
+          } else if (!row.value) {
+            ordered.push({ key: "__null__", label: "(բացակա)", count: row.count });
+          }
+        }
+        for (const item of ordered) {
+          const pct = total > 0 ? Math.round((item.count / total) * 100) : 0;
+          inner.push(
+            '<div class="opt">',
+            '<div class="opt-label">' + escapeHtml(item.label) + '</div>',
+            '<div class="opt-count">' + item.count + ' <em>(' + pct + '%)</em></div>',
+            '<div class="opt-bar"><span style="width:' + pct + '%"></span></div>',
+            '</div>'
+          );
+        }
+        card.innerHTML = inner.join("");
+        block.appendChild(card);
+      }
+
+      renderTable();
+    }
+
+    function renderTable() {
+      const tbody = $("submissionsBody");
+      const search = state.search.trim().toLowerCase();
+      const all = (state.data && state.data.submissions) || [];
+      const filtered = !search ? all : all.filter((s) => {
+        return [s.organization_name, s.main_phone, s.contact_name, s.contact_email, s.contact_phone, s.comments]
+          .filter(Boolean).some(v => String(v).toLowerCase().includes(search));
+      });
+      tbody.innerHTML = "";
+      $("visibleCount").textContent = filtered.length === all.length
+        ? all.length + " գրառում"
+        : filtered.length + " / " + all.length;
+      if (filtered.length === 0) {
+        $("emptyState").classList.remove("hidden");
+      } else {
+        $("emptyState").classList.add("hidden");
+      }
+      for (const s of filtered) {
+        const tr = document.createElement("tr");
+        const contactHtml = (s.contact_name || s.contact_email || s.contact_phone)
+          ? ('<div class="row-meta">' +
+              [s.contact_name, s.contact_email, s.contact_phone]
+                .filter(Boolean).map(escapeHtml).join(" · ") + '</div>')
+          : "";
+        const ansRows = QUESTIONS.map(q =>
+          '<div><span>' + escapeHtml(q.label.replace(/^\d+\.\s*/, "")) + '</span> ' +
+          escapeHtml(answerLabel(q.key, s[q.key])) + '</div>'
+        ).join("");
+        const commentsHtml = s.comments
+          ? '<div style="margin-top:0.5rem;color:var(--muted);font-size:0.85rem;"><b style="color:var(--text);">Մեկնաբանություն՝</b> ' + escapeHtml(s.comments) + '</div>'
+          : "";
+        tr.innerHTML =
+          '<td>' + s.id + '</td>' +
+          '<td>' +
+            '<div class="row-org">' + escapeHtml(s.organization_name || "—") + '</div>' +
+            '<div class="row-meta">' + escapeHtml(s.main_phone || "") + '</div>' +
+            contactHtml +
+          '</td>' +
+          '<td>' + escapeHtml(fmtDate(s.created_at)) + '</td>' +
+          '<td><details><summary>Դիտել պատասխանները</summary><div class="ans-grid">' +
+            ansRows + '</div>' + commentsHtml + '</details></td>';
+        tbody.appendChild(tr);
+      }
+    }
+
+    function toCsv(data) {
+      const headers = ["id", "created_at", "organization_name", "main_phone",
+        ...QUESTIONS.map(q => q.key + "_label"),
+        "contact_name", "contact_email", "contact_phone", "comments"];
+      const escape = (v) => {
+        if (v == null) return "";
+        const s = String(v).replace(/"/g, '""');
+        return /[",\n;]/.test(s) ? '"' + s + '"' : s;
+      };
+      const lines = [headers.join(",")];
+      for (const s of data.submissions || []) {
+        const row = [s.id, s.created_at, s.organization_name, s.main_phone,
+          ...QUESTIONS.map(q => answerLabel(q.key, s[q.key])),
+          s.contact_name, s.contact_email, s.contact_phone, s.comments];
+        lines.push(row.map(escape).join(","));
+      }
+      return "\uFEFF" + lines.join("\n");
+    }
+
+    function downloadCsv() {
+      if (!state.data) return;
+      const csv = toCsv(state.data);
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "harcatertik-" + new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-") + ".csv";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    async function loadDashboard() {
+      const btn = $("refreshBtn");
+      const oldText = btn.textContent;
+      btn.disabled = true; btn.textContent = "Թարմացվում է…";
+      try {
+        const data = await fetchStats(state.password);
+        state.data = data;
+        renderStats(data);
+        showDashboard();
+      } catch (err) {
+        if (err.code === 401) {
+          clearPassword();
+          showLogin("Սխալ գաղտնաբառ");
+        } else {
+          alert("Բեռնման սխալ. " + err.message);
+        }
+      } finally {
+        btn.disabled = false; btn.textContent = oldText;
+      }
+    }
+
+    $("loginBtn").addEventListener("click", async () => {
+      const pw = $("password").value;
+      if (!pw) { $("loginErr").textContent = "Մուտքագրեք գաղտնաբառ"; return; }
+      $("loginErr").textContent = "";
+      $("loginBtn").disabled = true;
+      try {
+        const data = await fetchStats(pw);
+        setPassword(pw);
+        state.data = data;
+        renderStats(data);
+        showDashboard();
+        $("password").value = "";
+      } catch (err) {
+        if (err.code === 401) $("loginErr").textContent = "Սխալ գաղտնաբառ";
+        else $("loginErr").textContent = err.message;
+      } finally {
+        $("loginBtn").disabled = false;
+      }
+    });
+    $("password").addEventListener("keydown", (e) => { if (e.key === "Enter") $("loginBtn").click(); });
+    $("refreshBtn").addEventListener("click", loadDashboard);
+    $("exportBtn").addEventListener("click", downloadCsv);
+    $("logoutBtn").addEventListener("click", () => { clearPassword(); state.data = null; showLogin(""); });
+    $("searchInput").addEventListener("input", (e) => { state.search = e.target.value; renderTable(); });
+
+    (async () => {
+      const stored = loadStoredPassword();
+      if (!stored) { showLogin(""); return; }
+      state.password = stored;
+      try {
+        const data = await fetchStats(stored);
+        state.data = data;
+        renderStats(data);
+        showDashboard();
+      } catch (err) {
+        if (err.code === 401) { clearPassword(); showLogin(""); }
+        else { showLogin(err.message); }
+      }
+    })();
+  </script>
+</body>
+</html>

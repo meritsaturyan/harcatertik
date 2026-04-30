@@ -457,6 +457,9 @@
       });
       syncContact();
 
+      var submitBtn = form.querySelector('button[type="submit"]');
+      var submitOriginalText = submitBtn ? submitBtn.textContent : "";
+
       form.addEventListener("submit", function (e) {
         e.preventDefault();
         if (!form.checkValidity()) {
@@ -478,11 +481,39 @@
         data.forEach(function (v, k) {
           payload[k] = v;
         });
-        console.log("Survey submission:", payload);
-        form.classList.add("hidden");
-        if (footer) footer.style.display = "none";
-        thankYou.classList.add("visible");
-        thankYou.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Ուղարկվում է…";
+        }
+
+        fetch("/api/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then(function (res) {
+            if (!res.ok) {
+              return res.text().then(function (txt) {
+                throw new Error("HTTP " + res.status + ": " + txt);
+              });
+            }
+            return res.json();
+          })
+          .then(function () {
+            form.classList.add("hidden");
+            if (footer) footer.style.display = "none";
+            thankYou.classList.add("visible");
+            thankYou.scrollIntoView({ behavior: "smooth", block: "start" });
+          })
+          .catch(function (err) {
+            console.error("Submission error", err);
+            alert("Ուղարկման սխալ։ Փորձեք կրկին։\n" + err.message);
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = submitOriginalText || "Ուղարկել";
+            }
+          });
       });
     })();
   </script>

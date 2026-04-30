@@ -1,0 +1,13 @@
+{
+  "name": "harcatertik",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Axiom Synergy Group — հարցաթերթիկ + admin panel",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.2"
+  }
+}
